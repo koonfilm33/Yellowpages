@@ -1,0 +1,42 @@
+/* จะมีการเชื่อมต่อการฐารข้อมูล MySql ก่อนผ่านโปรแกรมXampp เพื่อเชื่อมต่อฐานข้อมูล
+
+
+import java.sql.*;
+public class DBCconnect {
+    private Connection conn;
+    private Statement st;
+    private String url="jdbc:mysql://localhost:3306/yellowpages";
+    private String user="root";
+    private String password="";
+    
+    public ResultSet getResult(String query){
+        ResultSet rs;
+        try{
+          conn=DriverManager.getConnection(url,user,password);
+          st=conn.createStatement();
+          rs=st.executeQuery(query);
+        }catch(Exception ex){
+            rs=null;
+        }
+        return     rs; 
+   }       
+     public boolean execute(String query){
+         boolean rs;
+         try{
+            conn=DriverManager.getConnection(url,user,password);
+            st=conn.createStatement();
+            st.execute(query);
+            rs=true;
+         }catch(Exception ex){
+            rs=false;
+         }
+     return rs;
+ }
+     public void close(){
+         try{
+             conn.close();
+         }catch(Exception ex){
+             
+         }
+     }
+}
